@@ -1,0 +1,400 @@
+openapi: 3.0.0
+info:
+  title: Calorie Tracker
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://calorie-tracker-ttxy.onrender.com/api/v1
+  variables: {}
+  
+paths:
+
+  /auth/register:
+  
+    post:
+      tags:
+      - Authentication
+      summary: Register User
+      operationId: RegisterUser
+      parameters: []
+      requestBody:
+        description: Register a new user
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/RegisterUserRequest'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          headers: {}
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/UserResponse'
+        '400':
+          description: Please provide the email and password
+        '401':
+          description: Invalid Credentials
+        '500':
+          description: Something went wrong, try again later
+      deprecated: false
+      security: []
+      
+  /auth/login:
+  
+    post:
+      tags:
+      - Authentication
+      summary: Login User
+      operationId: LoginUser
+      parameters: []
+      requestBody:
+        description: Log in with existing credentials
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/LoginUserRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          headers: {}
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/UserResponse'
+        '400':
+          description: Please provide the email and password
+        '401':
+          description: Invalid Credentials
+        '500':
+          description: Something went wrong, try again later
+      deprecated: false
+      security: []
+      
+  /food-items:
+  
+    post:
+      tags:
+      - Food Items
+      summary: Create Food Item
+      operationId: CreateFoodItem
+      parameters: []
+      requestBody:
+        description: Create a new food item
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/FoodItem'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FoodItem'  
+        '401':
+          description: Authentication is invalid
+        '500':
+          description: Something went wrong, try again later
+      deprecated: false
+      
+    get:
+      tags:
+      - Food Items
+      summary: All Food Items
+      operationId: AllFoodItems
+      parameters: []
+      responses:
+        '200':
+          description: Successful operation
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: number
+                  foodItems:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/FoodItem'
+        '401':
+          description: Authentication is invalid
+        '500':
+          description: Something went wrong, try again later
+      deprecated: false
+      security:
+      - bearer: []
+      
+  /food-items/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The food item ID
+        
+    get:
+      tags:
+      - Food Items
+      summary: Single Food Item
+      operationId: SingleFoodItem
+      parameters: []
+      responses:
+        '200':
+          description: Successful operation
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FoodItem'  
+        '401':
+          description: Authentication is invalid
+        '500':
+          description: Something went wrong, try again later
+      deprecated: false
+      security:
+      - bearer: []
+      
+    delete:
+      tags:
+      - Food Items
+      summary: Delete Food Item
+      operationId: DeleteFoodItem
+      parameters: []
+      responses:
+        '200':
+          description: Successful operation
+          headers: {}
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/DeleteSuccess'
+        '404':
+          description: 'No Food Item with ID : # at user ${userID}'
+        '500':
+          description: Something went wrong, try again later
+      deprecated: false
+      security:
+      - bearer: []
+      
+    patch:
+      tags:
+      - Food Items
+      summary: Update Food Item
+      operationId: UpdateFoodItem
+      parameters: []
+      requestBody:
+        description: Partial change to a food item
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdateFoodItemRequest'
+            example:
+              name: cereal
+              brand: Frooty Loops
+              mealTime: second_breakfast
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FoodItem'  
+        '404':
+          description: 'No Food Item with ID : # at user ${userID}'
+        '500':
+          description: Something went wrong, try again later
+      deprecated: false
+      security:
+      - bearer: []
+      
+components:
+  schemas:
+  
+    RegisterUserRequest:
+      title: Register User Request
+      required:
+      - name
+      - email
+      - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: qqqq
+        email: qqqqq@qqq.qq
+        password: qqqqqq
+        
+    LoginUserRequest:
+      title: Login User Request
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: qqqq@qqq.qq
+        password: qqqqqq
+        
+    UserResponse:
+      title: User Login/Register Response
+      type: object
+      properties:
+        user:
+          type: object
+          properties:
+            name:
+              type: string
+        token:
+          type: string
+      example:
+        user:
+          name: qqqq
+        token: token
+        
+    FoodItem:
+      title: Food Item
+      required:
+      - name
+      - brand
+      - mealTime
+      - calories
+      - amount
+      - consumeDate
+      type: object
+      properties:
+        name:
+          type: string
+        brand:
+          type: string
+        mealTime:
+          type: string
+          enum: 
+            - breakfast
+            - second_breakfast
+            - lunch
+            - after_lunch
+            - dinner
+            - late_dinner
+            - midnight_crave
+        calories:
+          type: integer
+          format: int32
+        amount:
+          allOf:
+          - $ref: '#/components/schemas/Amount'
+          - {}
+        consumeDate:
+          type: integer
+          format: int64
+      example:
+        name: cereal
+        brand: Kashi
+        mealTime: breakfast
+        calories: 300
+        amount:
+          quantity: 1
+          unit: large_bowl
+        consumeDate: 1712442775395
+        
+    UpdateFoodItemRequest:
+      title: Update Food Item
+      type: object
+      properties:
+        name:
+          type: string
+        brand:
+          type: string
+        mealTime:
+          type: string
+          enum: 
+            - breakfast
+            - second_breakfast
+            - lunch
+            - after_lunch
+            - dinner
+            - late_dinner
+            - midnight_crave
+        calories:
+          type: integer
+          format: int32
+        amount:
+          allOf:
+          - $ref: '#/components/schemas/Amount'
+          - {}
+        consumeDate:
+          type: integer
+          format: int64
+          
+    DeleteSuccess:
+      title: Delete Success Response
+      type: object
+      properties:
+        msg: 
+          type: string
+      example:
+        msg: Food Item 6611d1beabf0d6109dcf652f deleted successfully
+    Amount:
+      title: Amount
+      required:
+      - quantity
+      - unit
+      type: object
+      properties:
+        quantity:
+          type: integer
+          format: int32
+        unit:
+          type: string
+          enum:
+            - oz
+            - g
+            - lb
+            - glass
+            - qt
+            - gal
+            - cup
+            - fl oz
+            - teaspoonful
+            - small_bowl
+            - large_bowl
+            - just_a_pinch_it_doesnt_count
+      example:
+        quantity: 1
+        unit: large_bowl
+        
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+- name: Authentication
+  description: User registration and login
+- name: Food Items
+  description: CRUD on Food Items
