@@ -1,0 +1,11 @@
+<%- include("partials/head.ejs") %>
+<%- include("partials/header.ejs") %>
+<div style="display: grid">
+  <% if (user) { %>
+    <a href="/secretWord">Click this link to view/change the secret word.</a>
+  <% } else { %>
+    <a href="/sessions/logon" style="margin: 10px 0px">Click this link to logon.</a>
+    <a href="/sessions/register" style="margin: 10px 0px">Click this link to register.</a>
+<% } %>
+</div>
+<%- include("partials/footer.ejs") %>
