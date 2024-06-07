@@ -1,29 +1,26 @@
 <%- include("partials/head.ejs") %>
 <%- include("partials/header.ejs") %>
-
-<div id="register-div"></div>
-<form method="POST" class="logon-register">
-  <div class="logon-register-field">
-    <label name="name">Enter your name:</label>
-    <input name="name" type="text" id="name" value="<%= credentials ? credentials.name : '' %>" />
-  </div>
-  <div class="logon-register-field">
-    <label name="email">Enter your email:</label>
-    <input name="email" type="email" id="email" value="<%= credentials ? credentials.email : '' %>" />
-  </div>
-  <div class="logon-register-field">
-    <label name="password">Enter your password:</label>
-    <input type="password" name="password" type="password" id="password" />
-  </div>
-  <div class="logon-register-field">
-    <label name="password1">Confirm your password:</label>
-    <input type="password" name="password1" type="password" id="password1" />
-  </div>
-  <input type="hidden" name="_csrf" value="<%= _csrf %>">
+<form method="POST">
   <div>
-    <button id="register-button">Register</button>
+    <label name="name">Enter your name:</label>
+    <input name="name" />
+  </div>
+  <div>
+    <label name="email">Enter your email:</label>
+    <input name="email" />
+  </div>
+  <div>
+    <label name="password">Enter your password:</label>
+    <input type="password" name="password" />
+  </div>
+  <div>
+    <label name="password1">Confirm your password:</label>
+    <input type="password" name="password1" />
+  </div>
+  <div>
+    <button>Register</button>
     <a href="/">
-      <button type="button" id="register-cancel">Cancel</button>
+      <button type="button">Cancel</button>
     </a>
   </div>
 </form>

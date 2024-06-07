@@ -9,18 +9,17 @@ import {
   logoff,
 } from '../controllers/sessionController.js';
 
-router.route('/register').get(registerShow).post(registerDo);
+router.route("/register").get(registerShow).post(registerDo);
 router
-  .route('/logon')
+  .route("/logon")
   .get(logonShow)
   .post(
-    passport.authenticate('local', {
-      successRedirect: '/',
-      failureRedirect: '/sessions/logon',
-      badRequestMessage: 'Credentials missing. Please enter again',
-      failureFlash: true
+    passport.authenticate("local", {
+      successRedirect: "/",
+      failureRedirect: "/sessions/logon",
+      failureFlash: true,
     })
   );
-router.route('/logoff').post(logoff);
+router.route("/logoff").post(logoff);
 
 export default router;
