@@ -1,19 +1,18 @@
 <%- include("partials/head.ejs") %>
 <%- include("partials/header.ejs") %>
-<form method="POST" class="logon-register">
-  <div class="logon-register-field">
-    <label name="email">Email:</label>
+<form method="POST" style="display: flex; flex-direction: column; width: 20%;">
+  <div style="display: flex; justify-content: space-between;">
+    <label name="email">Enter your email:</label>
     <input name="email" />
   </div>
-  <div class="logon-register-field">
-    <label name="password">Password:</label>
+  <div style="display: flex; justify-content: space-between;">
+    <label name="password">Enter your password:</label>
     <input type="password" name="password" />
   </div>
-  <input type="hidden" name="_csrf" value="<%= _csrf %>">
-  <div class="login-register-form-buttons">
-    <button id="logon-button">Logon</button>
+  <div style="display: flex; justify-content: flex-end; margin: 20px 0px 0px 0px;">
+    <button>Logon</button>
     <a href="/">
-      <button type="button" id="logon-cancel">Cancel</button>
+      <button type="button">Cancel</button>
     </a>
   </div>
 </form>

@@ -10,7 +10,7 @@ const FoodItemSchema = new mongoose.Schema(
     brand: {
       type: String,
       maxlength: 50,
-      default: 'unknown'
+      default: "unknown"
     },
     mealTime: {
       type: String,
