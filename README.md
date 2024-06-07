@@ -13,8 +13,9 @@ npm install && npm start
 
 #### Routers
 
-- auth.js
-- jobs.js
+- sessionRoutes.js
+- food-items.js
+- secretWord.js
 
 #### User Model
 
