@@ -1,0 +1,100 @@
+<%- include("partials/head.ejs") %>
+<%- include("partials/header.ejs") %>
+<%
+let name = '';
+let brand = '';
+let mealTime = '';
+let amount = {quantity: null, unit: null};
+let consumeDate = '';
+let calories = '';
+let comments = '';
+
+if (foodItem) { 
+  name = foodItem.name || '';
+  brand = foodItem.brand || '';
+  mealTime = foodItem.mealTime || '';
+  amount.quantity = foodItem.amount ? foodItem.amount.quantity : '';
+  amount.unit = foodItem.amount ? foodItem.amount.unit : '';
+  consumeDate = foodItem.consumeDate || '';
+  calories = foodItem.calories || '';
+  comments = foodItem.comments || '';
+};
+const formattedDateEdit = (date) => {
+  const timeZoneOffset = new Date(date).getTimezoneOffset();
+  const offsetDate = new Date(Date.parse(date) + timeZoneOffset * 60 * 1000);
+  const year = offsetDate.getFullYear();
+  const month = (offsetDate.getMonth() + 1).toLocaleString(undefined, { minimumIntegerDigits: 2 });
+  const day = (offsetDate.getDate()).toLocaleString(undefined, { minimumIntegerDigits: 2 });
+  return `${year}-${month}-${day}`;
+};
+%>
+<h2>Food Item</h2>
+<div id="edit-food-item">
+  <form id="add-food-item-form" method="POST" action="/food-items<%= updateToggle ? `/update/${foodItem.id}` : '' %>">
+    <div class="add-food-item-field">
+      <label for="name">name<span class="asterisk">*</span>:</label>
+      <input type="text" id="foodName" name="name" value="<%= name %>" />
+    </div>
+    <div class="add-food-item-field">
+      <label for="brand">brand:</label>
+      <input type="text" id="brand" name="brand" value="<%= brand %>" />
+    </div>
+    <div class="add-food-item-field">
+      <label for="mealTime">meal time:</label>
+      <select id="mealTime" name="mealTime">
+        <option value="breakfast" <%=mealTime=='breakfast' ? 'selected' : '' %>>breakfast</option>
+        <option value="second_breakfast" <%=mealTime=='second_breakfast' ? 'selected' : '' %>>second breakfast</option>
+        <option value="lunch" <%=mealTime=='lunch' ? 'selected' : '' %>>lunch</option>
+        <option value="after_lunch" <%=mealTime=='after_lunch' ? 'selected' : '' %>>after lunch</option>
+        <option value="dinner" <%=mealTime=='dinner' ? 'selected' : '' %>>dinner</option>
+        <option value="late_dinner" <%=mealTime=='late_dinner' ? 'selected' : '' %>>late dinner</option>
+        <option value="midnight_crave" <%=mealTime=='midnight_crave' ? 'selected' : '' %>>midnight crave</option>
+      </select>
+    </div>
+    <div class="add-food-item-field">
+      <label for="calories">calories<span class="asterisk">*</span>:</label>
+      <input type="text" id="calories" name="calories" value="<%= calories %>" />
+    </div>
+    <div class="add-food-item-field" id="food-item-amount">
+      <div id="food-item-quantity">
+        <label for="quantity">quantity<span class="asterisk">*</span>:</label>
+        <input type="text" id="quantity" name="quantity" value="<%= amount.quantity %>" />
+      </div>
+      <div id="food-item-unit">
+        <label for="unit">unit<span class="asterisk">*</span>:</label>
+        <select id="unit" name="unit">
+          <option value="oz" <%= amount.unit=='oz' ? 'selected' : '' %>>oz</option>
+          <option value="g" <%= amount.unit=='g' ? 'selected' : '' %>>g</option>
+          <option value="lb" <%= amount.unit=='lb' ? 'selected' : '' %>>lb</option>
+          <option value="glass" <%= amount.unit=='glass' ? 'selected' : '' %>>glass</option>
+          <option value="qt" <%= amount.unit=='qt' ? 'selected' : '' %>>qt</option>
+          <option value="gal" <%= amount.unit=='gal' ? 'selected' : '' %>>gal</option>
+          <option value="cup" <%= amount.unit=='cup' ? 'selected' : '' %>>cup</option>
+          <option value="fl_oz" <%= amount.unit=='fl_oz' ? 'selected' : '' %>>fl oz</option>
+          <option value="teaspoonful" <%= amount.unit=='teaspoonful' ? 'selected' : '' %>>teaspoonful</option>
+          <option value="small_bowl" <%= amount.unit=='small_bowl' ? 'selected' : '' %>>small bowl</option>
+          <option value="large_bowl" <%= amount.unit=='large_bowl' ? 'selected' : '' %>>large bowl</option>
+          <option value="just_a_pinch_it_doesnt_count" <%= amount.unit=='just_a_pinch_it_doesnt_count' ? 'selected' : ''
+            %>>just a pinch it doesn't count</option>
+        </select>
+      </div>
+    </div>
+    <div class="add-food-item-field">
+      <label for="consume-date">consume date<span class="asterisk">*</span>:</label>
+      <input type="date" id="consume-date" name="consumeDate" value="<%= formattedDateEdit(consumeDate) %>" />
+    </div>
+    <div class="add-food-item-field">
+      <label for="comments">comments:</label>
+      <input type="text" id="comments" name="comments" value="<%= comments %>" />
+    </div>
+    <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+    <input type="hidden" name="id" value="<%= updateToggle ? foodItem.id : '' %>" />
+    <div id="add-food-item-buttons">
+      <button type="submit" id="adding-food-item">
+        <%= updateToggle ? 'Update' : 'Add' %>
+      </button>
+      <a href="/food-items"><button type="button" id="edit-cancel">Cancel</button></a>
+    </div>
+  </form>
+</div>
+<%- include("partials/footer.ejs") %>

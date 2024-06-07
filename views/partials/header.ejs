@@ -1,20 +1,29 @@
 <header>
-  <h1 style="text-align: center">Calorie Tracker</h1>
+  <h1 style="text-align: center">Calorie Tracker EJS</h1>
 </header>
 
 <% if (user) { %>
-  <p id="message">Logon successful. Welcome <span style="font-weight: bold; color: red; font-size: 2rem; text-transform: capitalize;"><%= user.name %></span></p>
+  <p id="message">Logon successful. Welcome <span
+      style="font-weight: bold; color: red; font-size: 2rem; text-transform: capitalize;">
+      <%= user.name %>
+    </span></p>
   <form method="POST" action="/sessions/logoff">
+    <input type="hidden" name="_csrf" value="<%= _csrf %>">
     <button style="margin: 10px 0px">Logoff</button>
   </form>
 <% } %>
 
 <% if (errors && errors.length) {
-  errors.forEach((err) => { %>
-    <div><h3 style="color: red; margin: 0px;">Error: <%= err %></h3></div>
+  errors.forEach((err)=> { %>
+  <div>
+    <h3 class="error-message">Error: <%= err %></h3>
+  </div>
 <% }) } %>
 <% if (info && info.length) {
-  info.forEach((msg) => { %>
-    <div><h3 style="color: green; margin: 0px;">Info: <%= msg %></h3></div>
+  info.forEach((msg)=> { %>
+  <div>
+    <h3 class="info-message">Info: <%= msg %>
+    </h3>
+  </div>
 <% }) } %>
-<hr  style="margin: 20px 0px" />
+<hr style="margin: 20px 0px" />
