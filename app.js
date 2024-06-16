@@ -82,6 +82,16 @@ import secretWordRouter from './routes/secretWord.js';
 import sessionRouter from './routes/sessionRoutes.js';
 import foodItemsRouter from './routes/food-items.js';
 
+// Chai/Express rendering issue fix
+app.use((req, res, next) => {
+  if (req.path == '/multiply') {
+    res.set('Content-Type', 'application/json')
+  } else {
+    res.set('Content-Type', 'text/html')
+  }
+  next();
+});
+
 // routes
 app.use('/sessions', sessionRouter);
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
@@ -92,16 +102,36 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
+// test route
+app.get('/multiply', (req, res) => {
+  const result = req.query.first * req.query.second;
+  if (result.isNaN) {
+    result = 'NaN';
+  } else if (result == null) {
+    result = 'null';
+  }
+  res.json({ result: result });
+});
+
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
-const port = process.env.PORT || 3000;
-(async () => {
+let port = process.env.PORT || 3000;
+const server = await (async () => {
+  let mongoURL = process.env.MONGO_URI;
   try {
-    await connectDB(process.env.MONGO_URI, console.log('Connected to the DB'));
-    app.listen(port, () =>
+    if (process.env.NODE_ENV == 'test') {
+      mongoURL = process.env.MONGO_URI_TEST;
+      port = 3001;
+    };
+    console.log(`Running in ${process.env.NODE_ENV || 'dev'} env`);
+
+    await connectDB(mongoURL, console.log('Connected to the DB'));
+    return app.listen(port, () =>
       console.log(`Server is listening on port ${port}...`));
   } catch (error) {
     console.log(error);
   }
 })();
+
+export { app, server, port };

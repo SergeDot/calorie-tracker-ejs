@@ -28,12 +28,12 @@ const formattedDateEdit = (date) => {
   return `${year}-${month}-${day}`;
 };
 %>
-<h2>Food Item</h2>
+<h2 class="page-header">Food Item Form</h2>
 <div id="edit-food-item">
   <form id="add-food-item-form" method="POST" action="/food-items<%= updateToggle ? `/update/${foodItem.id}` : '' %>">
     <div class="add-food-item-field">
       <label for="name">name<span class="asterisk">*</span>:</label>
-      <input type="text" id="foodName" name="name" value="<%= name %>" />
+      <input type="text" id="food-name" name="name" value="<%= name %>" />
     </div>
     <div class="add-food-item-field">
       <label for="brand">brand:</label>
@@ -41,7 +41,7 @@ const formattedDateEdit = (date) => {
     </div>
     <div class="add-food-item-field">
       <label for="mealTime">meal time:</label>
-      <select id="mealTime" name="mealTime">
+      <select id="meal-time" name="mealTime">
         <option value="breakfast" <%=mealTime=='breakfast' ? 'selected' : '' %>>breakfast</option>
         <option value="second_breakfast" <%=mealTime=='second_breakfast' ? 'selected' : '' %>>second breakfast</option>
         <option value="lunch" <%=mealTime=='lunch' ? 'selected' : '' %>>lunch</option>
@@ -80,7 +80,7 @@ const formattedDateEdit = (date) => {
       </div>
     </div>
     <div class="add-food-item-field">
-      <label for="consume-date">consume date<span class="asterisk">*</span>:</label>
+      <label for="consumeDate">consume date<span class="asterisk">*</span>:</label>
       <input type="date" id="consume-date" name="consumeDate" value="<%= formattedDateEdit(consumeDate) %>" />
     </div>
     <div class="add-food-item-field">

@@ -3,13 +3,12 @@
 </header>
 
 <% if (user) { %>
-  <p id="message">Logon successful. Welcome <span
-      style="font-weight: bold; color: red; font-size: 2rem; text-transform: capitalize;">
+  <p id="message">Logon successful. Welcome <span id="user-name">
       <%= user.name %>
     </span></p>
   <form method="POST" action="/sessions/logoff">
     <input type="hidden" name="_csrf" value="<%= _csrf %>">
-    <button style="margin: 10px 0px">Logoff</button>
+    <button style="margin: 10px 0px" id="logoff">Logoff</button>
   </form>
 <% } %>
 
