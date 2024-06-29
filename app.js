@@ -88,10 +88,10 @@ import userRouter from './routes/user.js';
 // Chai/Express rendering issue fix
 app.use((req, res, next) => {
   if (req.path == '/multiply') {
-    res.set('Content-Type', 'application/json')
+    res.set('Content-Type', 'application/json');
   } else {
-    res.set('Content-Type', 'text/html')
-  }
+    // res.set('Content-Type', 'text/html')
+  };
   next();
 });
 
