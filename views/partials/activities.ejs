@@ -1,0 +1,68 @@
+<%
+const formattedDateQueryResult = (date) => {
+  const timeZoneOffset = new Date(date).getTimezoneOffset();
+  return new Date(Date.parse(date) + timeZoneOffset * 60 * 1000).toLocaleDateString();
+};
+
+let totalCalories = 0;
+if (activityInfo && activityInfo.length) { activityInfo.forEach(msg => { %>
+
+  <div>
+    <h2 class="info-message"><%= msg %>
+    </h2>
+  </div>
+<% }) } %>
+<h2 class="page-header">Activities</h2>
+<table id="activities-table">
+  <tr class="table-header">
+    <th>Type</th>
+    <th>Duration</th>
+    <th>Calorie Burned</th>
+    <th>Comments</th>
+    <th class="table-header-actions" colspan="2">Actions</th>
+  </tr>
+  <% if (activities && activities.length) { %>
+    <% activities.forEach(activity => { %>
+      <tr class="activity-entry">
+        <td>
+          <%= activity.type %>
+        </td>
+        <td class="centered-cell">
+          <%= `${activity.duration.number} ${activity.duration.unit}` %>
+        </td>
+        <td class="centered-cell">
+          <%= activity.calories %>
+        </td>
+        <td>
+          <%= activity.comments %>
+        </td>
+        <td><a href="/activities/edit/<%= activity.id %>">
+            <button type="button" class="editButton">Edit</button>
+          </a></td>
+        <td>
+          <form method="POST" action="/food-items/delete/<%= activity.id %>" style="display: inline">
+            <dialog class="delete-confirmation" id="<%= activity.id %>">
+              <p>Are you sure you want to delete <%= activity.name %>?</p>
+              <button type="submit" class="confirmDelete" class="confirmYes">Yes</button>
+              <button autofocus type="button" class="confirmDelete" class="confirmNo"
+                onclick="document.getElementById('<%= activity.id %>').close()">No</button>
+            </dialog>
+            <button type="button" class="deleteButton"
+              onclick="document.getElementById('<%= activity.id %>').showModal()">Delete</button>
+            <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+          </form>
+        </td>
+      </tr>
+      <% totalCalories += activity.calories; 
+      }) %>
+  <tr>
+    <td colspan="9" class="table-row-total" data-total="<%= totalCalories %>">Total calories burned: <%= totalCalories %> cal
+    </td>
+  </tr>
+  <% } %>
+</table>
+<div id="default-buttons">
+  <a href="/activities/new">
+    <button type="button" id="add-activity-button">Add</button>
+  </a>
+</div>

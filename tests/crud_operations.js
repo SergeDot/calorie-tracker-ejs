@@ -106,7 +106,6 @@ describe('tests for crud operations @chai', function () {
         expect(res.text).to.include(foodItemHeaderText);
         const foodItemLineList = res.text.match(regexFoodItemRowClass);
         expect(foodItemLineList).to.have.length(predefinedNumberOfFoodItems);
-        // console.log(`157`, Object.keys(res));
         done();
       });
   });

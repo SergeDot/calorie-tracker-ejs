@@ -81,6 +81,9 @@ import errorHandlerMiddleware from './middleware/error-handler.js';
 import secretWordRouter from './routes/secretWord.js';
 import sessionRouter from './routes/sessionRoutes.js';
 import foodItemsRouter from './routes/food-items.js';
+import activitiesRouter from './routes/activities.js';
+import mainWindowRouter from './routes/main-window.js';
+import userRouter from './routes/user.js';
 
 // Chai/Express rendering issue fix
 app.use((req, res, next) => {
@@ -97,6 +100,9 @@ app.use('/sessions', sessionRouter);
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.use('/secretWord', auth, secretWordRouter);
 app.use('/food-items', auth, foodItemsRouter);
+app.use('/activities', auth, activitiesRouter);
+app.use('/main-window', auth, mainWindowRouter);
+app.use('/edit-profile', auth, userRouter);
 
 app.get('/', (req, res) => {
   res.render('index');
@@ -111,6 +117,10 @@ app.get('/multiply', (req, res) => {
     result = 'null';
   }
   res.json({ result: result });
+});
+
+app.get('/calendar', (req, res) => {
+  res.render('calendar.ejs');
 });
 
 app.use(notFoundMiddleware);

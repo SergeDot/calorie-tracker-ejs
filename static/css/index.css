@@ -8,8 +8,40 @@ body {
   font-family: Nunito;
   box-sizing: border-box;
   height: 100%;
-  width: 80%;
+  width: 90%;
   margin: auto;
+}
+
+section {
+  padding: 10px 0;
+}
+
+#edit-profile {
+  margin: 0px;
+}
+
+#user-profile {
+  display: flex;
+  border-bottom: 1px solid #000;
+}
+
+.user-info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.user-info-line {
+  padding-left: 20px;
+}
+
+/* .user-info div{
+  width: fit-content;
+  height: fit-content;
+} */
+
+#main-info {
+  display: grid;
+  grid-template-columns: 15% 45% 40%;
 }
 
 .logon-register {
@@ -18,17 +50,87 @@ body {
   width: 40%;
 }
 
-.logon-register-field,
-.add-food-item-field {
+.form-input-text {
   display: flex;
   justify-content: space-between;
+  padding-bottom: 5px;
 }
 
-.login-register-form-buttons,
-#add-food-item-buttons {
+.fill-form {
+  margin: auto;
+}
+
+.multi-component {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-fields {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: auto;
+}
+
+.form-dropdown,
+.form-fields input {
+  width: 60%
+}
+
+.add-form-buttons {
   display: flex;
   justify-content: flex-end;
   margin: 20px 0px;
+}
+
+.asterisk {
+  color: red;
+}
+
+.login-register-form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px 0px;
+}
+
+.radio-button-field {
+  width: 400px;
+}
+
+.detailed-info {
+  display: inline-block;
+  background-image: url(/files/question-circle.svg);
+  background-repeat: no-repeat;
+  width: 15px;
+  height: 15px;
+  cursor: help;
+}
+
+.collapsible {
+  text-align: left;
+  padding: 0 15px;
+}
+
+.collapsible-button {
+  border: 1px solid #000;
+  border-radius: 5px;
+  font-size: 1em;
+  background-color: inherit;
+  cursor: help;
+}
+
+.collapsible-calendar {
+  display: none
+}
+
+.detailed-user-info {
+  max-height: 0;
+  overflow: hidden;
+  transition: 0.2s ease-out;
+}
+
+.bold {
+  font-weight: bold;
 }
 
 #user-name {
@@ -58,11 +160,13 @@ body {
   margin: 5px 0px;
 }
 
-#add-food-item-form {
-  display: flex;
-  flex-direction: column;
-  width: 50%;
-  margin: auto;
+#calendar-pane,
+#food-pane {
+  border-right: 1px solid black;
+}
+
+h1 {
+  margin: 20px 0px 0px 0px;
 }
 
 header,
@@ -76,67 +180,44 @@ h3 {
   font-weight: bold;
   text-align: center;
   color: red;
-}
-
-#food-items {
-  text-align: center;
-}
-
-#edit-food-item {
-  margin: auto;
-}
-
-#food-item-amount {
-  display: flex;
-  flex-direction: column;
-}
-
-#food-item-quantity,
-#food-item-unit {
-  display: flex;
-  justify-content: space-between;
-}
-
-select#meal-time,
-select#unit,
-#add-food-item-form input {
-  width: 60%
-}
-
-.asterisk {
-  color: red;
+  margin: 0px;
 }
 
 table {
-  width: 70%;
   text-align: center;
   margin: auto;
   border-collapse: collapse;
   padding: 0px;
+  width: 95%;
 }
 
-#food-items-table-header {
+.table-header {
   border-bottom: 1px black solid;
 }
 
-#table-header-comments {
-  max-width: 30%;
+.table-header-actions {
+  width: 10px;
 }
 
-#table-row-total {
+.table-row-total {
+  padding: 20px 0px 0px 0px;
   text-align: left;
   font-weight: bold;
-}
-
-#table-header-actions {
-  width: 10px;
 }
 
 .centered-cell {
   text-align: center
 }
 
-dialog {
+.conclusion {
+  text-align: left;
+  border: 1px solid #000;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+
+.delete-confirmation {
   background-color: rgb(247, 247, 251);
   border-color: red;
 }
@@ -151,6 +232,10 @@ dialog {
   filter: blur(2px);
 }
 
+.dialog-info {
+  width: 500px
+}
+
 a#swagger_link {
   color: rgb(63, 178, 43);
   font-weight: bold;
@@ -161,29 +246,47 @@ a#swagger_link {
   text-align: right;
 }
 
-@media all and (max-width: 1200px) {
+@media all and (max-width: 1500px) {
   body {
-    width: 90%;
+    width: 95%;
   }
 
+  #main-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .collapsible-calendar {
+    display: block;
+    cursor: help;
+    text-align: left;
+    padding: 0 15px;
+  }
+  
+  .collapsible-calendar-button {
+    border: 1px solid #000;
+    border-radius: 5px;
+    font-size: 1em;
+    background-color: inherit;
+    cursor:pointer;
+  }  
+}
+
+@media all and (max-width: 1200px) {
   .logon-register {
     width: 60%;
-  }
-
-  #add-food-item-form {
-    width: 70%;
   }
 
   table {
     width: 100%;
   }
-  
+
+  .form-fields {
+    width: 70%;
+  }  
 }
 
 @media all and (max-width: 900px) {
-  body {
-    width: 95%;
-  }
   .logon-register {
     width: 100%;
   }
@@ -199,24 +302,22 @@ a#swagger_link {
     width: 100%;
   }
 
-  .logon-register-field,
-  .add-food-item-field {
+  .form-input-text {
     display: grid;
   }
 
-  #add-food-item-form {
+  .form-fields {
     display: grid;
     margin: auto;
     width: 100%
   }
 
-  #food-item-amount {
+  .multi-component {
     display: grid;
   }
-  
-  #food-item-quantity,
-  #food-item-unit {
+
+  #user-profile {
     display: grid;
+    border-bottom: 1px solid #000;
   }
 }
-

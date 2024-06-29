@@ -1,0 +1,93 @@
+<% 
+let age = user.birthYear ? new Date().getFullYear() - user.birthYear : '';
+let height = {feet: null, inches: null};
+let weight = user.weight || '';
+let gender = user.gender || '';
+let goal = user.goal || '';
+let lifestyle = user.lifestyle || '';
+height.feet = user.height ? user.height.feet : '';
+height.inches = user.height ? user.height.inches : '';
+%>
+<!-- <form method="POST" id="user-details" action="/edit-profile"> -->
+    <div class="form-input-text">
+      <label name="age">Your age:</label>
+      <input name="age" type="text" id="age" value="<%= age %>" />
+    </div>
+    <div class="form-input-text multi-component">
+      <div class="form-input-text">
+        <label for="feet">Height, feet:</label>
+        <input type="text" id="height_feet" name="feet" value="<%= height.feet %>" />
+      </div>
+      <div class="form-input-text">
+        <label for="inches">Height, inches</label>
+        <input type="text" id="height_inches" name="inches" value="<%= height.inches %>" />
+      </div>
+    </div>
+    <div class="form-input-text">
+      <label name="weight">Your current weight, lb:</label>
+      <input name="weight" type="text" id="weight" value="<%= weight %>" />
+    </div>
+    <div class="form-input-text">
+      <div>Gender:</div>
+      <div class="radio-button-field" id="gender-field">
+        <input name="gender" type="radio" id="gender_male" value="gender_male" <%=gender=='gender_male' ? 'checked' : '' %> />
+        <label name="gender_male" for="gender_male">Male</label>
+        <input name="gender" type="radio" id="gender_female" value="gender_female" <%=gender=='gender_female' ? 'checked' : '' %>/>
+        <label name="gender_female" for="gender_female">Female</label>
+        <input name="gender" type="radio" id="gender_other"  value="gender_other" <%=!['gender_male','gender_female'].includes(gender) ? 'checked' : '' %>/>
+        <label name="gender_other" for="gender_other">Other</label>
+        <input name="gender" type="hidden" id="gender_custom" value="<%= !['gender_male','gender_female'].includes(gender) ? gender : '' %>" />
+        <label name="gender_custom" for="gender_custom" />
+      </div>
+    </div>
+    <div class="form-input-text">
+      <div>Life style:</div>
+      <div class="radio-button-field" id="lifestyle">
+        <input name="lifestyle" type="radio" id="sedentary" value="sedentary" <%=lifestyle&&lifestyle==1 ? 'checked' : '' %> />
+        <label name="sedentary" for="sedentary">Sedentary <div class="detailed-info" onclick="document.getElementById('sedentary-lifestyle-info').showModal()"></div></label>
+        <input name="lifestyle" type="radio" id="moderately_active" value="moderately_active" <%=lifestyle&&lifestyle==2 ? 'checked' : '' %> />
+        <label name="moderately_active" for="moderately_active">Moderately active <div class="detailed-info" onclick="document.getElementById('moderately_active-lifestyle-info').showModal()"></div></label>
+        <input name="lifestyle" type="radio" id="lifestyle_active" value="active" <%=lifestyle&&lifestyle==3 ? 'checked' : '' %> />
+        <label name="active" for="lifestyle_active">Active <div class="detailed-info" onclick="document.getElementById('active-lifestyle-info').showModal()"></div></label>
+        <input name="lifestyle" type="radio" id="very_active" value="very_active" <%=lifestyle&&lifestyle==4 ? 'checked' : '' %> />
+        <label name="very_active" for="very_active">Very active <div class="detailed-info" onclick="document.getElementById('very-active-lifestyle-info').showModal()"></div></label>
+      </div>
+    </div>
+    <div class="form-input-text">
+      <div>Goal:</div>
+      <div class="radio-button-field">
+        <input name="goal" type="radio" id="lose_weight" value="lose_weight" <%=goal == 'lose_weight' ? 'checked' : '' %> />
+        <label name="lose_weight" for="lose_weight">Lose weight</label>
+        <input name="goal" type="radio" id="maintain_weight" value="maintain_weight" <%=goal == 'maintain_weight' ? 'checked' : '' %> />
+        <label name="maintain_weight" for="maintain_weight">Maintain weight</label>
+        <input name="goal" type="radio" id="gain_weight" value="gain_weight" <%=goal == 'gain_weight' ? 'checked' : '' %> />
+        <label name="gain_weight" for="gain_weight">Gain weight</label>
+      </div>
+    </div>
+    <input type="hidden" name="newUser" value="false">
+    <input type="hidden" name="_csrf" value="<%= _csrf %>">
+    <div class="edit-profile-buttons">
+      <button id="register-button">Submit</button>
+      <!-- <a href="#" onclick="submitUserForm()">I'll do it later</a> -->
+      <a href="/main-window" >I'll do it later</a>
+    </div>
+  </form>
+</div>
+<p></p>
+<dialog id="sedentary-lifestyle-info">
+  <p class="dialog-info">Sometimes under the care of someone else. Resting metabolic rate plus a factor for minimal activities - playing cards, watching TV, reading, etc. Little to no exercise, such as a desk job with no additional physical activity</p>
+  <button autofocus type="button" onclick="document.getElementById('sedentary-lifestyle-info').close()">Close</button>
+</dialog>
+<dialog id="moderately_active-lifestyle-info">
+  <p class="dialog-info">Most persons in light industry, electrical, carpentry and building trades (excluding heavy laborers), many farm workers, soldiers not in active service, commercial fishermen, housewives/househusbands without mechanical appliances. If you have an office or driving occupation (see Lightly Active category), you may have to average 1.5 to 2 hours of exercise per day (like jogging 5 to 6 miles/day). Light exercise 1-2 days/week</p>
+  <button autofocus type="button" onclick="document.getElementById('moderately_active-lifestyle-info').close()">Close</button>
+</dialog>
+<dialog id="active-lifestyle-info">
+  <p class="dialog-info">Most persons in light industry, electrical, carpentry and building trades (excluding heavy laborers), many farm workers, soldiers not in active service, commercial fishermen, housewives/househusbands without mechanical appliances. If you have an office or driving occupation (see Lightly Active category), you may have to average 1.5 to 2 hours of exercise per day (like jogging 5 to 6 miles/day). Moderate exercise 3-5 days/week</p>
+  <button autofocus type="button" onclick="document.getElementById('active-lifestyle-info').close()">Close</button>
+</dialog>
+<dialog id="very-active-lifestyle-info">
+  <p class="dialog-info">Full time athletes, unskilled laborers, some agricultural workers (especially peasant farming), forestry workers, army recruits and soldiers in active service, mine workers, steel workers. This level requires moderate intensity activity for most of the work day or exercise comparable to running 9 to 13 miles/day. Hard exercise 6-7 days/week</p>
+  <button autofocus type="button" onclick="document.getElementById('very-active-lifestyle-info').close()">Close</button>
+</dialog>
+<script src="/js/user-details.js"></script>

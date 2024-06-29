@@ -1,0 +1,131 @@
+/* styles.css */
+
+/* General styling for the entire page */
+
+
+.wrapper {
+	max-width: 1100px;
+	margin: auto;
+}
+
+/* Calendar container */
+.container-calendar {
+	margin: auto;
+	overflow: auto;
+	display: flex;
+	justify-content: space-between;
+}
+
+.container-calendar #left h1 {
+	text-align: center;
+	margin: 0;
+	padding: 10px 0;
+}
+
+/* Buttons in the calendar */
+.button-container-calendar button {
+	cursor: pointer;
+	color: #000;
+	border-radius: 4px;
+	padding: 5px 10px;
+}
+
+/* Calendar table */
+.table-calendar {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.table-calendar td,
+.table-calendar th {
+	padding: 0px;
+	border: 1px solid #e2e2e2;
+	text-align: center;
+	vertical-align: top;
+}
+
+/* Date picker */
+.date-picker.selected {
+	background-color: #f2f2f2;
+	font-weight: bold;
+	outline: 1px dashed #008697;
+  /* selected */
+}
+
+.date-link {
+  display: block;
+  text-decoration: none;
+  color: black;
+}
+
+.date-picker.selected span {
+	border-bottom: 2px solid ;
+}
+
+/* Day-specific styling */
+.date-picker:nth-child(1) span,
+.date-picker:nth-child(7) span {
+	color: red;
+	/* Saturday, Sunday */
+}
+
+/* Hover effect for date cells */
+.date-link:hover {
+	background-color: black;
+	color: white;
+	cursor: pointer;
+}
+
+.date-picker.today span {
+	color: #008697;
+  /* today */
+}
+
+/* Header for month and year */
+#monthAndYear {
+	text-align: center;
+	margin-top: 0;
+}
+
+/* Navigation buttons */
+.button-container-calendar {
+	position: relative;
+	margin-bottom: 1em;
+	overflow: hidden;
+	clear: both;
+  text-align: center
+}
+
+#previous {
+	float: left;
+}
+
+#next {
+	float: right;
+}
+
+/* Footer styling */
+.footer-container-calendar {
+	margin-top: 1em;
+	border-top: 1px solid #dadada;
+	padding: 10px 0;
+}
+
+.footer-container-calendar select {
+	cursor: pointer;
+	background: #ffffff;
+	color: #585858;
+	border: 1px solid #bfc5c5;
+	border-radius: 3px;
+	padding: 5px 1em;
+}
+
+@media all and (max-width: 1500px) {
+	.wrapper {
+		max-height: 0;
+		overflow: hidden;
+		transition: max-height 0.2s ease-out;
+		}
+	
+	}
+
