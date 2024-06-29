@@ -1,0 +1,30 @@
+<% 
+let name = user.name || '';
+let email = user.email || '';
+let password;
+%>
+<h2 class="page-header">Profile Details</h2>
+<div class="fill-form">
+<form class="form-fields" method="POST" id="user-details" action="/edit-profile">
+  <div class="form-input-text">
+    <label name="name">Change your name:</label>
+    <input name="name" type="text" id="name" value="<%= name %>" />
+  </div>
+  <div class="form-input-text">
+    <label name="email">Change your email:</label>
+    <input name="email" type="email" id="email" value="<%= email %>" />
+  </div>
+  <div class="form-input-text">
+    <label name="password">Change your password:</label>
+    <input type="password" name="password" type="password" id="password" />
+  </div>
+  <div class="form-input-text">
+    <label name="password1">Confirm your password:</label>
+    <input type="password" name="password1" type="password" id="password1" />
+  </div>
+  <div>
+    <span>Want to change password</span>
+    <label for="password-toggle"></label>
+    <input type="checkbox" id="password-toggle">
+  </div>
+  <p></p>

@@ -1,0 +1,73 @@
+<%- include("partials/head.ejs") %>
+<%- include("partials/header.ejs") %>
+<%
+let type = '';
+let duration = {number: null, unit: null};
+let activityDate = '';
+let calories = '';
+let comments = '';
+
+if (activity) { 
+  type = activity.type || '';
+  duration.number = activity.duration ? activity.duration.number : '';
+  duration.unit = activity.duration ? activity.duration.unit : '';
+  activityDate = activity.activityDate || '';
+  calories = activity.calories || '';
+  comments = activity.comments || '';
+};
+const formattedDateEdit = (date) => {
+  const timeZoneOffset = new Date(date).getTimezoneOffset();
+  const offsetDate = new Date(Date.parse(date) + timeZoneOffset * 60 * 1000);
+  const year = offsetDate.getFullYear();
+  const month = (offsetDate.getMonth() + 1).toLocaleString(undefined, { minimumIntegerDigits: 2 });
+  const day = (offsetDate.getDate()).toLocaleString(undefined, { minimumIntegerDigits: 2 });
+  return `${year}-${month}-${day}`;
+};
+%>
+<h2 class="page-header">Activity Form</h2>
+<div class="fill-form" id="edit-activity">
+  <form class="form-fields" id="add-activity-form" method="POST" action="/activities<%= updateToggle ? `/update/${activity.id}` : '' %>">
+    <div class="form-input-text">
+      <label for="type">type<span class="asterisk">*</span>:</label>
+      <input type="text" id="type" name="type" value="<%= type %>" />
+    </div>
+    <div class="form-input-text multi-component">
+      <div class="form-input-text">
+        <label for="quantity">duration<span class="asterisk">*</span>:</label>
+        <input type="number" id="number" name="number" value="<%= duration.number %>" />
+      </div>
+      <div class="form-input-text">
+        <label for="unit">unit<span class="asterisk">*</span>:</label>
+        <select class="form-dropdown" id="unit" name="unit">
+          <option value="seconds" <%= duration.unit=='seconds' ? 'selected' : '' %>>seconds</option>
+          <option value="minutes" <%= duration.unit=='minutes' ? 'selected' : '' %>>minutes</option>
+          <option value="hours" <%= duration.unit=='hours' ? 'selected' : '' %>>hours</option>
+          <option value="steps" <%= duration.unit=='steps' ? 'selected' : '' %>>steps</option>
+          <option value="yards" <%= duration.unit=='yards' ? 'selected' : '' %>>yards</option>
+          <option value="miles" <%= duration.unit=='miles' ? 'selected' : '' %>>miles</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-input-text">
+      <label for="calories">calories<span class="asterisk">*</span>:</label>
+      <input type="text" id="calories" name="calories" value="<%= calories %>" />
+    </div>
+    <div class="form-input-text">
+      <label for="activityDate">activity date<span class="asterisk">*</span>:</label>
+      <input type="date" id=activity-date" name="activityDate" value="<%= formattedDateEdit(activityDate) %>" />
+    </div>
+    <div class="form-input-text">
+      <label for="comments">comments:</label>
+      <input type="text" id="comments" name="comments" value="<%= comments %>" />
+    </div>
+    <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+    <input type="hidden" name="id" value="<%= updateToggle ? activity.id : '' %>" />
+    <div class="add-form-buttons">
+      <button type="submit" class="form-submit">
+        <%= updateToggle ? 'Update' : 'Add' %>
+      </button>
+      <a href="/main-window?date=<%= showDate %>"><button type="button" id="edit-cancel">Cancel</button></a>
+    </div>
+  </form>
+</div>
+<%- include("partials/footer.ejs") %>

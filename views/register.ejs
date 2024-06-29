@@ -2,22 +2,23 @@
 <%- include("partials/header.ejs") %>
 <h2 class="page-header">Registration</h2>
 <form method="POST" class="logon-register">
-  <div class="logon-register-field">
+  <div class="form-input-text">
     <label name="name">Enter your name:</label>
     <input name="name" type="text" id="name" value="<%= credentials ? credentials.name : '' %>" />
   </div>
-  <div class="logon-register-field">
+  <div class="form-input-text">
     <label name="email">Enter your email:</label>
     <input name="email" type="email" id="email" value="<%= credentials ? credentials.email : '' %>" />
   </div>
-  <div class="logon-register-field">
+  <div class="form-input-text">
     <label name="password">Enter your password:</label>
     <input type="password" name="password" type="password" id="password" />
   </div>
-  <div class="logon-register-field">
+  <div class="form-input-text">
     <label name="password1">Confirm your password:</label>
     <input type="password" name="password1" type="password" id="password1" />
   </div>
+  <input type="hidden" name="newUser" value="true">
   <input type="hidden" name="_csrf" value="<%= _csrf %>">
   <div>
     <button id="register-button">Register</button>

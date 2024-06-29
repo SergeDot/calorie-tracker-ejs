@@ -260,7 +260,7 @@ const runTests = async () => {
       });
 
       it('verifies the number of food items', async () => {
-        const foodItemListButton = await page.waitForSelector('.logon-register-field a[href="/food-items"]');
+        const foodItemListButton = await page.waitForSelector('.form-input-text a[href="/food-items"]');
         await foodItemListButton.click();
         const pageHeader = await getPageHeaderText();
         expect(pageHeader).to.include('Food Items List');

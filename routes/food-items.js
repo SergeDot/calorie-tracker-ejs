@@ -1,9 +1,7 @@
 import express from 'express';
 const router = express.Router();
 import { getAllFoodItems, addFoodItem, showAddEditFoodItem, updateFoodItem, deleteFoodItem } from '../controllers/food-items.js';
-
-// router.route('/').post(createFoodItem).get(getAllFoodItems);
-// router.route('/:id').get(getFoodItem).delete(deleteFoodItem).patch(updateFoodItem);
+import { getAllItems } from '../controllers/main-window.js';
 
 router.route('/').get(getAllFoodItems).post(addFoodItem);
 router.route('/new').get(showAddEditFoodItem);

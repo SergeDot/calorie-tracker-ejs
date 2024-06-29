@@ -29,19 +29,19 @@ const formattedDateEdit = (date) => {
 };
 %>
 <h2 class="page-header">Food Item Form</h2>
-<div id="edit-food-item">
-  <form id="add-food-item-form" method="POST" action="/food-items<%= updateToggle ? `/update/${foodItem.id}` : '' %>">
-    <div class="add-food-item-field">
+<div class="fill-form" id="edit-food-item">
+  <form class="form-fields" id="add-food-item-form" method="POST" action="/food-items<%= updateToggle ? `/update/${foodItem.id}` : '' %>">
+    <div class="form-input-text">
       <label for="name">name<span class="asterisk">*</span>:</label>
       <input type="text" id="food-name" name="name" value="<%= name %>" />
     </div>
-    <div class="add-food-item-field">
+    <div class="form-input-text">
       <label for="brand">brand:</label>
       <input type="text" id="brand" name="brand" value="<%= brand %>" />
     </div>
-    <div class="add-food-item-field">
+    <div class="form-input-text">
       <label for="mealTime">meal time:</label>
-      <select id="meal-time" name="mealTime">
+      <select class="form-dropdown" id="meal-time" name="mealTime">
         <option value="breakfast" <%=mealTime=='breakfast' ? 'selected' : '' %>>breakfast</option>
         <option value="second_breakfast" <%=mealTime=='second_breakfast' ? 'selected' : '' %>>second breakfast</option>
         <option value="lunch" <%=mealTime=='lunch' ? 'selected' : '' %>>lunch</option>
@@ -51,18 +51,18 @@ const formattedDateEdit = (date) => {
         <option value="midnight_crave" <%=mealTime=='midnight_crave' ? 'selected' : '' %>>midnight crave</option>
       </select>
     </div>
-    <div class="add-food-item-field">
+    <div class="form-input-text">
       <label for="calories">calories<span class="asterisk">*</span>:</label>
       <input type="text" id="calories" name="calories" value="<%= calories %>" />
     </div>
-    <div class="add-food-item-field" id="food-item-amount">
-      <div id="food-item-quantity">
+    <div class="form-input-text multi-component">
+      <div class="form-input-text">
         <label for="quantity">quantity<span class="asterisk">*</span>:</label>
         <input type="text" id="quantity" name="quantity" value="<%= amount.quantity %>" />
       </div>
-      <div id="food-item-unit">
+      <div class="form-input-text">
         <label for="unit">unit<span class="asterisk">*</span>:</label>
-        <select id="unit" name="unit">
+        <select class="form-dropdown" id="unit" name="unit">
           <option value="oz" <%= amount.unit=='oz' ? 'selected' : '' %>>oz</option>
           <option value="g" <%= amount.unit=='g' ? 'selected' : '' %>>g</option>
           <option value="lb" <%= amount.unit=='lb' ? 'selected' : '' %>>lb</option>
@@ -79,21 +79,21 @@ const formattedDateEdit = (date) => {
         </select>
       </div>
     </div>
-    <div class="add-food-item-field">
+    <div class="form-input-text">
       <label for="consumeDate">consume date<span class="asterisk">*</span>:</label>
       <input type="date" id="consume-date" name="consumeDate" value="<%= formattedDateEdit(consumeDate) %>" />
     </div>
-    <div class="add-food-item-field">
+    <div class="form-input-text">
       <label for="comments">comments:</label>
       <input type="text" id="comments" name="comments" value="<%= comments %>" />
     </div>
     <input type="hidden" name="_csrf" value="<%= _csrf %>" />
     <input type="hidden" name="id" value="<%= updateToggle ? foodItem.id : '' %>" />
-    <div id="add-food-item-buttons">
-      <button type="submit" id="adding-food-item">
+    <div class="add-form-buttons">
+      <button type="submit" class="form-submit">
         <%= updateToggle ? 'Update' : 'Add' %>
       </button>
-      <a href="/food-items"><button type="button" id="edit-cancel">Cancel</button></a>
+      <a href="/main-window?date=<%= showDate %>"><button type="button" id="edit-cancel">Cancel</button></a>
     </div>
   </form>
 </div>

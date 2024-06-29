@@ -1,12 +1,17 @@
 <%- include("partials/head.ejs") %>
 <%- include("partials/header.ejs") %>
 <div class="logon-register">
-  <% if (user) { %>
-    <div class="logon-register-field site-actions">View/change the secret word <a href="/secretWord"><button>Go</button></a>
-    </div>
-    <div class="logon-register-field site-actions">View/change the food item list <a
-        href="/food-items"><button>Go</button></a></div>
+  <%  if (user) {
+    if (user.newUser) {%>
+      <form class="form-fields"  method="POST" id="user-details" action="/edit-profile">
+      <%- include("partials/user-details.ejs") %>
+
     <% } else { %>
+    <div class="form-input-text site-actions">View/change the secret word <a href="/secretWord"><button>Go</button></a>
+    </div>
+    <div class="form-input-text site-actions">View/change the food item list <a
+        href="/main-window"><button>Go</button></a></div>
+    <% }} else { %>
     <a href="/sessions/logon" style="margin: 10px 0px"><button type="button" id="logon">Logon</button></a>
     <a href="/sessions/register" style="margin: 10px 0px"><button type="button" id="register">Register</button></a>
 <% } %>

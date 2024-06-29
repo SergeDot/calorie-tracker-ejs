@@ -1,0 +1,119 @@
+<section id="user-profile">
+  <div class="user-info">
+    <div class="user-info-line">Name:</div>
+    <div class="user-info-line" style="padding-left: 20px"><%= user.name %></div>
+    <div class="user-info-line">Your goal:</div>
+    <div class="user-info-line"><span id="goal"><%= user.data.bio.goal %></span></div>
+    <div class="user-info-line">Your current lifestyle: <div class="detailed-info" onclick="document.getElementById('lifestyle-info').showModal()"></div>
+    </div>
+    <div class="user-info-line"><%= user.data.bio.lifestyle %></div>
+    <div class="user-info-line">Your Body Mass Index (BMI): <div class="detailed-info" onclick="document.getElementById('bmi-info').showModal()"></div>
+    </div>
+    <div class="user-info-line"><%= user.data.estimatedCalories.bmi %></div>
+    <div class="user-info-line">Based on BMI you fall in category:</div>
+    <div class="user-info-line"><%= user.data.estimatedCalories.bmiCategory %></div>
+    <div class="user-info-line">Your estimated Total Energy Expenditure (TEE): <div class="detailed-info" onclick="document.getElementById('tee-info').showModal()"></div>
+    </div>
+    <div class="user-info-line"><span id="tee"><%= user.data.estimatedCalories.tee %></span> cal</div>
+    <a href="/edit-profile">Edit profile</a>
+  </div>
+  <div class="collapsible"><button class="collapsible-button">More Details</button></div>
+  <div class="user-info detailed-user-info">
+      <div class="user-info-line">Your estimated Resting Metabolic Rate (RMR): <div class="detailed-info" onclick="document.getElementById('rmr-info').showModal()"></div></div>
+      <div class="user-info-line"><%= user.data.estimatedCalories.rmr %> cal</div>
+      <div class="user-info-line">Your estimated Basal Metabolic Rate (BMR): <div class="detailed-info" onclick="document.getElementById('bmr-info').showModal()"></div></div>
+      <div class="user-info-line"><%= user.data.estimatedCalories.bmr %> cal</div>
+      <div class="user-info-line">Your estimated Thermic Effect of Exercise (ThEE): <div class="detailed-info" onclick="document.getElementById('thee-info').showModal()"></div></div>
+      <div class="user-info-line"><%= user.data.estimatedCalories.thefex %> cal</div>
+      <div class="user-info-line">Your estimated Lean Body Mass (LBM): <div
+            class="detailed-info" onclick="document.getElementById('lbm-info').showModal()"></div>
+      </div>
+      <div class="user-info-line"><%= user.data.estimatedCalories.lbm %> lb</div>
+      <div class="user-info-line">Your estimated Total Daily Energy Expenditure (TDEE):<div class="detailed-info" onclick="document.getElementById('tdee-info').showModal()"></div>
+      </div>
+      <div class="user-info-line"><%=user.data.estimatedCalories.tdee %> cal</div>
+      <div class="user-info-line">Your estimated Total Daily Caloric Expenditure (DCE):<div class="detailed-info" onclick="document.getElementById('dce-info').showModal()"></div>
+    </div>
+    <div class="user-info-line"><%= user.data.estimatedCalories.dce %> cal</div>
+  </div>
+  <dialog id="lifestyle-info">
+    <p class="dialog-info">Sedentary: Sometimes under the care of someone else. Resting metabolic rate plus a factor for
+      minimal activities - playing cards, watching TV, reading, etc. Little to no exercise, such as a desk job with no
+      additional physical activity</p>
+    <p class="dialog-info">Moderately Active: Most persons in light industry, electrical, carpentry and building trades
+      (excluding heavy laborers), many farm workers, soldiers not in active service, commercial fishermen,
+      housewives/househusbands without mechanical appliances. If you have an office or driving occupation (see Lightly
+      Active category), you may have to average 1.5 to 2 hours of exercise per day (like jogging 5 to 6 miles/day) to be
+      "Moderately Active.". Light exercise 1-2 days/week</p>
+    <p class="dialog-info">Active: Most persons in light industry, electrical, carpentry and building trades (excluding
+      heavy laborers), many farm workers, soldiers not in active service, commercial fishermen, housewives/househusbands
+      without mechanical appliances. If you have an office or driving occupation (see Lightly Active category), you may
+      have to average 1.5 to 2 hours of exercise per day (like jogging 5 to 6 miles/day). Moderate exercise 3-5
+      days/week</p>
+    <p class="dialog-info">Very Active: Full time athletes, unskilled laborers, some agricultural workers (especially
+      peasant farming), forestry workers, army recruits and soldiers in active service, mine workers, steel workers.
+      This level requires moderate intensity activity for most of the work day or exercise comparable to running 9 to 13
+      miles/day. Hard exercise 6-7 days/week</p>
+    <button autofocus type="button" onclick="document.getElementById('lifestyle-info').close()">Close</button>
+  </dialog>
+  <dialog id="bmi-info">
+    <p class="dialog-info">The Body Mass Index (BMI) is a simple index of weight-for-height that is commonly used to
+      classify underweight, overweight and obesity in adults. It is defined as the weight in kilograms divided by the
+      square of the height in meters. While BMI does not measure body fat directly, research has shown, that BMI
+      correlates to direct measures of body fat. The standard weight status categories shown above are associated with
+      BMI for adults 20 years of age and older.</p>
+    <button autofocus type="button" onclick="document.getElementById('bmi-info').close()">Close</button>
+  </dialog>
+  <dialog id="tee-info">
+    <p class="dialog-info">The Total Energy Expenditure (TEE) is is an estimate of the amount of energy, or calories,
+      you burn daily when accounting for your activity level.</p>
+    <button autofocus type="button" onclick="document.getElementById('tee-info').close()">Close</button>
+  </dialog>
+  <dialog id="rmr-info">
+    <p class="dialog-info">The Resting Metabolic Rate (RMR) is the energy you expend while at rest (in Calories per
+      day). Its actual value depends upon a number of factors including age, sex, body weight, and individual genetic
+      factors. We ignore the genetic factors and use a simplified approach to estimating your RMR based upon your age,
+      sex, and body weight. Besides RMR, there is also a term basal metabolic rate (BMR). This is something different
+      than resting metabolic rate. BMR measurements are more strict than those of RMR – the BMR test requires a 24-hour
+      rest and an overnight fast, while the RMR needs only a 15-minute relaxation period.</p>
+    <p class="dialog-info">The BMR doesn't take into account, e.g., calories utilized for food digestion. That's the
+      reason why RMR is considered to be more reliable in the estimation of resting calories. Your body is usually
+      digesting some amount of food at every moment of time.</p>
+    <button autofocus type="button" onclick="document.getElementById('rmr-info').close()">Close</button>
+  </dialog>
+  <dialog id="bmr-info">
+    <p class="dialog-info">The Basal Metabolic Rate (BMR, Harris-Benedict formula) is similar to RMR to the point where
+      it is a slightly different formula. It is the daily energy needed to sustain cell metabolism and associated life
+      processes, extrapolated to a 24-hour period. Besides BMR, there is also a term Resting Metabolic Rate (RMR). This
+      is something different than BMR. BMR measurements are more strict than those of RMR - the BMR test requires a
+      24-hour rest and an overnight fast, while the RMR needs only a 15-minute relaxation period.</p>
+    <p class="dialog-info">The BMR doesn't take into account, e.g., calories utilized for food digestion. That's the
+      reason why RMR is considered to be more reliable in the estimation of resting calories. Your body is usually
+      digesting some amount of food at every moment of time. In the calculations here RMR is used.</p>
+    <button autofocus type="button" onclick="document.getElementById('bmr-info').close()">Close</button>
+  </dialog>
+  <dialog id="thee-info">
+    <p class="dialog-info">The Thermic Effect of Exercise (ThEE) is the energy expended due to activity over and
+      above your RMR. To estimate your total daily Caloric expenditure you need to add your ThEE to your RMR. As implied
+      by its name, your ThEE depends on how active you are. Another way to calculate TEE.</p>
+    <button autofocus type="button" onclick="document.getElementById('thee-info').close()">Close</button>
+  </dialog>
+  <dialog id="lbm-info">
+    <p class="dialog-info">The Lean Body Mass (LBM) is what your body would weight if you didn't have any body fat; that
+      means it counts all the organs, bones, muscles, blood and skin, and everything else which is not fat but has mass.
+    </p>
+    <button autofocus type="button" onclick="document.getElementById('lbm-info').close()">Close</button>
+  </dialog>
+  <dialog id="tdee-info">
+    <p class="dialog-info">Total Daily Energy Expenditure (TDEE) is an estimate of the amount of energy, or calories,
+      you burn daily when accounting for your activity level. To calculate TDEE, you can simply multiply your BMR or RMR
+      by an activity factor based on your average daily activity level. Another way to calculate TEE.</p>
+    <button autofocus type="button" onclick="document.getElementById('tdee-info').close()">Close</button>
+  </dialog>
+  <dialog id="dce-info">
+    <p class="dialog-info">The daily calorie expenditure (DCE) is is an estimate of the amount of energy, or calories,
+      you burn daily when accounting for your activity level. Another way to calculate TEE.</p>
+    <button autofocus type="button" onclick="document.getElementById('dce-info').close()">Close</button>
+  </dialog>
+
+</section>

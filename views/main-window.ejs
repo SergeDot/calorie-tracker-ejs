@@ -1,0 +1,30 @@
+<%- include("partials/head.ejs") %>
+<%- include("partials/header.ejs") %>
+<%- include("partials/user-info.ejs") %>
+<h2 class="date-header"><%= 
+  `${new Date(showDate).toLocaleDateString('en-us', { month:"long"})} ${new Date(showDate).getDate()}, ${new Date(showDate).getFullYear()}` 
+  %></h2>
+<div id="app-container">
+  <div id="main-info">
+    <section id="calendar-pane" selected-date="<%= showDate %>">
+      <%- include("partials/calendar.ejs") %>
+    </section>
+    <section id="food-pane">
+      <%- include("partials/food-items.ejs") %>
+    </section>
+    <section id="activities-pane">
+      <%- include("partials/activities.ejs") %>
+    </section>
+  </div>
+  <section id="calculation">
+    <div class="conclusion">
+      <h3>Your estimated daily calorie expenditure is: <%= user.data.estimatedCalories.tee.toFixed(0) %> cal <div class="detailed-info" onclick="document.getElementById('weight-info').showModal()"></div></h3>
+    </div>
+    <dialog id="weight-info">
+      <p class="dialog-info">It is recommended to receive 500 calories less than your daily calorie expenditure to lose 1 pound a week</p>
+      <button autofocus type="button" onclick="document.getElementById('weight-info').close()">Close</button>
+    </dialog>
+  
+  </section>
+</div>
+<%- include("partials/footer.ejs") %>

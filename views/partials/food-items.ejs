@@ -1,5 +1,3 @@
-<%- include("partials/head.ejs") %>
-<%- include("partials/header.ejs") %>
 <%
 const formattedDateQueryResult = (date) => {
   const timeZoneOffset = new Date(date).getTimezoneOffset();
@@ -7,22 +5,22 @@ const formattedDateQueryResult = (date) => {
 };
 let totalCalories = 0;
 if (foodItemInfo && foodItemInfo.length) { foodItemInfo.forEach(msg => { %>
+
   <div>
     <h2 class="info-message"><%= msg %>
     </h2>
   </div>
 <% }) } %>
-<h2 class="page-header">Food Items List</h2>
+<h2 class="page-header">Food Items</h2>
 <table id="food-items-table">
-  <tr id="food-items-table-header">
+  <tr class="table-header">
     <th>Name</th>
     <th>Brand</th>
     <th>Meal Time</th>
     <th>Amount</th>
-    <th>Date</th>
     <th>Calorie Amount</th>
     <th>Comments</th>
-    <th id="table-header-actions" colspan="2">Actions</th>
+    <th class="table-header-actions" colspan="2">Actions</th>
   </tr>
   <% if (foodItems && foodItems.length) { %>
     <% foodItems.forEach(foodItem => { %>
@@ -39,9 +37,6 @@ if (foodItemInfo && foodItemInfo.length) { foodItemInfo.forEach(msg => { %>
         <td class="centered-cell">
           <%= `${foodItem.amount.quantity} ${foodItem.amount.unit}` %>
         </td>
-        <td>
-          <%= formattedDateQueryResult(foodItem.consumeDate) %>
-        </td>
         <td class="centered-cell">
           <%= foodItem.calories %>
         </td>
@@ -55,8 +50,8 @@ if (foodItemInfo && foodItemInfo.length) { foodItemInfo.forEach(msg => { %>
           <form method="POST" action="/food-items/delete/<%= foodItem.id %>" style="display: inline">
             <dialog class="delete-confirmation" id="<%= foodItem.id %>">
               <p>Are you sure you want to delete <%= foodItem.name %>?</p>
-              <button type="submit" class="confirmDelete" class="confirmYes">Yes</button>
-              <button autofocus type="button" class="confirmDelete" class="confirmNo"
+              <button type="submit" class="confirmDelete confirmYes">Yes</button>
+              <button autofocus type="button" class="confirmDelete confirmNo"
                 onclick="document.getElementById('<%= foodItem.id %>').close()">No</button>
             </dialog>
             <button type="button" class="deleteButton"
@@ -68,7 +63,7 @@ if (foodItemInfo && foodItemInfo.length) { foodItemInfo.forEach(msg => { %>
       <% totalCalories +=foodItem.calories; 
       }) %>
   <tr>
-    <td colspan="9" id="table-row-total">Total calories: <%= totalCalories %>
+    <td colspan="9" class="table-row-total" data-total="<%= totalCalories %>">Total calories received: <%= totalCalories %> cal
     </td>
   </tr>
   <% } %>
@@ -78,4 +73,3 @@ if (foodItemInfo && foodItemInfo.length) { foodItemInfo.forEach(msg => { %>
     <button type="button" id="add-food-item-button">Add</button>
   </a>
 </div>
-<%- include("partials/footer.ejs") %>
